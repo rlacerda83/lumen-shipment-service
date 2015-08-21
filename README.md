@@ -1,7 +1,7 @@
 ## Shipping API
 
 This is a simple API for shipping.
-
+Status: under development
 
 ## Installation
 
@@ -76,3 +76,4 @@ Accept: application/vnd.YOUR_VENDOR.v1+json
 In the above example you would replace YOUR_VENDOR with the vendor name you defined in your .env configuration. Again, this is usually something unique to your application, such as its name or identifier, and is usually all lowercase.
 
 Following the vendor name we have the version we want. In the above example we're requesting v1 of our API. This is then followed by a plus sign and the desired format. If the format is invalid the package will attempt to use the default format you defined in your configuration.
+
