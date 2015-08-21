@@ -18,7 +18,7 @@ class CarriersController extends BaseController
     /**
      * @return mixed
      */
-    public function index()
+    public function index(Request $request)
     {
         $paginator =  Carrier::orderBy('name')->paginate(10);
         return $this->response->paginator($paginator, new CarrierTransformer());
