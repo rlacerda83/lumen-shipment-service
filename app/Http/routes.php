@@ -14,15 +14,15 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers\V1'], function ($api) {
 
-    $api->get('shipment/carriers', 'CarriersController@index');
+    $api->get('carriers', 'CarriersController@index');
 
-    $api->get('shipment/carriers/{id}', 'CarriersController@get');
+    $api->get('carriers/{id}', 'CarriersController@get');
 
-    $api->post('shipment/carriers','CarriersController@create');
+    $api->post('carriers','CarriersController@create');
 
-    $api->put('shipment/carriers/{id}','CarriersController@update');
+    $api->put('carriers/{id}','CarriersController@update');
 
-    $api->delete('shipment/carriers/{id}', 'CarriersController@delete');
+    $api->delete('carriers/{id}', 'CarriersController@delete');
 });
 
 
