@@ -8,12 +8,16 @@ class CarrierTransformer extends TransformerAbstract
 {
 
     /**
-     * @param \App\Models\Carrier $carrier
-     * @return array
+     * @param $carrier
+     * @return mixed
      */
-    public function transform(\App\Models\Carrier $carrier)
+    public function transform($carrier)
     {
-       return $carrier->toArray();
+        if ($carrier instanceof \stdClass) {
+            return json_decode(json_encode($carrier), true);
+        }
+
+        return $carrier->toArray();
     }
 
 }

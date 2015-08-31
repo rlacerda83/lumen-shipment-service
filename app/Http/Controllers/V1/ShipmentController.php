@@ -37,7 +37,7 @@ class ShipmentController extends BaseController
 
         $shipper = new PostOffice($shipment);
         print_r($shipment->getShippers());
-        print_r($shipper->getServices()); die;;
+        print_r($shipper->getServices()); die;
     }
 
     public function services(Request $request)

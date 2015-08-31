@@ -1,7 +1,7 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "rlacerda83/lumem-microservice-shippment",
+    "description": "Microservice for management shippment.",
+    "keywords": ["shipping", "laravel", "lumen", "microservice", "postman"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -9,7 +9,9 @@
         "vlucas/phpdotenv": "~1.0",
         "illuminate/mail" : "5.*",
         "jeremeamia/superclosure": "~2.0",
-        "dingo/api": "@dev"
+        "dingo/api": "@dev",
+        "rlacerda83/query-parser": "@dev",
+        "rlacerda83/lumem-elocache": "@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
