@@ -14,6 +14,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers\V1'], function ($api) {
 
+    // Carriers
     $api->get('carriers', 'CarriersController@index');
 
     $api->get('carriers/{id}', 'CarriersController@get');
@@ -23,6 +24,18 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->put('carriers/{id}','CarriersController@update');
 
     $api->delete('carriers/{id}', 'CarriersController@delete');
+
+
+    //Services
+    $api->get('carriers/{idCarrier}/services', 'CarriersServicesController@index');
+
+    $api->get('carriers/{idCarrier}/services/{idService}', 'CarriersServicesController@get');
+
+    $api->post('carriers/{idCarrier}/services','CarriersServicesController@create');
+
+    $api->put('carriers/{idCarrier}/services/{idService}','CarriersServicesController@update');
+
+    $api->delete('carriers/{idCarrier}/services/{idService}', 'CarriersServicesController@delete');
 });
 
 

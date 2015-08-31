@@ -25,6 +25,7 @@ class CreateShipmentCarrierServiceTable extends Migration
             $table->timestamps();
 
             $table->index(['name']);
+            $table->index(['carrier_id', 'code']);
             $table->foreign('carrier_id')->references('id')->on(Carrier::getTableName())->onDelete('cascade');
         });
     }

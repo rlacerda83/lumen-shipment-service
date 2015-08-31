@@ -2189,12 +2189,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rlacerda83/lumen-api-query-parser.git",
-                "reference": "a13f97f6855072c27f088e53ec3bf9807a81bacf"
+                "reference": "66cb458e3d7f5dd39dea8a71ca4e531ad8ea749f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rlacerda83/lumen-api-query-parser/zipball/a13f97f6855072c27f088e53ec3bf9807a81bacf",
-                "reference": "a13f97f6855072c27f088e53ec3bf9807a81bacf",
+                "url": "https://api.github.com/repos/rlacerda83/lumen-api-query-parser/zipball/66cb458e3d7f5dd39dea8a71ca4e531ad8ea749f",
+                "reference": "66cb458e3d7f5dd39dea8a71ca4e531ad8ea749f",
                 "shasum": ""
             },
             "require": {
@@ -2228,7 +2228,7 @@
                 "parser",
                 "query"
             ],
-            "time": "2015-08-30 03:43:19"
+            "time": "2015-08-31 03:24:59"
         },
         {
             "name": "swiftmailer/swiftmailer",

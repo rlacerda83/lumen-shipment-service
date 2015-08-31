@@ -9,7 +9,6 @@ use Validator;
 
 class CarrierRepository extends AbstractRepository
 {
-    protected $enableCaching = true;
 
     public static $rules = [
         'name' => 'required|max:150'
@@ -27,6 +26,7 @@ class CarrierRepository extends AbstractRepository
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public function validateRequest(Request $request)
@@ -50,6 +50,12 @@ class CarrierRepository extends AbstractRepository
         return $this->getModel()->hasMany('App\Models\Carrier\Services');
     }
 
+    /**
+     * @param Request $request
+     * @param int $itemsPage
+     *
+     * @return mixed
+     */
     public function findAllPaginate(Request $request, $itemsPage = 30)
     {
         $key = md5($itemsPage.$request->getRequestUri());

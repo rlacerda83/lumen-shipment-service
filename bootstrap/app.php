@@ -65,7 +65,7 @@ app('Dingo\Api\Auth\Auth')->extend('static', function ($app) {
     return new App\Services\Authentication\StaticAuthentication($app['auth']);
 });
 
-app('Dingo\Api\Transformer\Factory')->register('Carrier', 'CarrierTransformer');
+app('Dingo\Api\Transformer\Factory')->register('Base', 'BaseTransformer');
 
 /*
 |--------------------------------------------------------------------------

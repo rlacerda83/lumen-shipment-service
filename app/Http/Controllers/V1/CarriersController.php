@@ -2,7 +2,7 @@
 
 use App\Models\Carrier;
 use App\Repositories\Eloquent\CarrierRepository;
-use App\Transformers\CarrierTransformer;
+use App\Transformers\BaseTransformer;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\UpdateResourceFailedException;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class CarriersController extends BaseController
         try {
             $paginator = $this->repository->findAllPaginate($request, 10);
 
-            return $this->response->paginator($paginator, new CarrierTransformer);
+            return $this->response->paginator($paginator, new BaseTransformer);
         } catch (QueryParserException $e) {
             throw new StoreResourceFailedException($e->getMessage(), $e->getFields());
         }
@@ -58,11 +58,10 @@ class CarriersController extends BaseController
 
         try {
             $carrier = $this->repository->create($request->all());
-            return $this->response->item($carrier, new CarrierTransformer())->setStatusCode(201);
+            return $this->response->item($carrier, new BaseTransformer)->setStatusCode(201);
         } catch (\Exception $e) {
             throw new StoreResourceFailedException($e->getMessage());
         }
-
     }
 
     /**
@@ -82,7 +81,7 @@ class CarriersController extends BaseController
         try {
             $carrier = $this->repository->update($request->all(), $carrier);
 
-            return $this->response->item($carrier, new CarrierTransformer);
+            return $this->response->item($carrier, new BaseTransformer);
         } catch (\Exception $e) {
             throw new StoreResourceFailedException($e->getMessage());
         }
@@ -100,7 +99,7 @@ class CarriersController extends BaseController
             throw new StoreResourceFailedException('Carrier not found');
         }
 
-        return $this->response->item($carrier, new CarrierTransformer);
+        return $this->response->item($carrier, new BaseTransformer);
     }
 
     /**
@@ -121,7 +120,6 @@ class CarriersController extends BaseController
         } catch (\Exception $e) {
             throw new DeleteResourceFailedException($e->getMessage());
         }
-
     }
 }
 
