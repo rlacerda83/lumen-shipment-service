@@ -16,6 +16,7 @@ class CreateShipmentCarrierTable extends Migration
         Schema::create(Carrier::getTableName(), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('code');
             $table->string('document1')->nullable();
             $table->string('document2')->nullable();
             $table->string('address')->nullable();
@@ -27,8 +28,10 @@ class CreateShipmentCarrierTable extends Migration
             $table->float('max_volume')->nullable();
             $table->longText('config')->nullable();
             $table->tinyInteger('status');
+            $table->string('model_reference');
             $table->timestamps();
             $table->index(['status']);
+            $table->index(['code']);
         });
     }
 

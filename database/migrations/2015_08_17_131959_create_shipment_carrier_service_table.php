@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use App\Models\Carrier;
-use App\Models\Carrier\Services;
+use App\Models\CarrierService;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateShipmentCarrierServiceTable extends Migration
@@ -14,7 +14,7 @@ class CreateShipmentCarrierServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create(Services::getTableName(), function (Blueprint $table) {
+        Schema::create(CarrierService::getTableName(), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('carrier_id')->unsigned();
             $table->string('name');
@@ -37,8 +37,8 @@ class CreateShipmentCarrierServiceTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasTable(Services::getTableName())) {
-            Schema::drop(Services::getTableName());
+        if (Schema::hasTable(CarrierService::getTableName())) {
+            Schema::drop(CarrierService::getTableName());
         }
 
     }

@@ -155,31 +155,6 @@ class CarriersServicesController extends BaseController
             throw new DeleteResourceFailedException($e->getMessage());
         }
     }
-
-    /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function rate(Request $request)
-    {
-        /*
-         * $required_fields = array('receiver_name', 'receiver_address1', 'receiver_city', 'receiver_state',
-            'receiver_postal_code', 'receiver_country_code');
-         */
-        $shipment = new Shipment(array(
-            'ship_from_different_address' => false,
-            'receiver_name' => 'Rodrigo',
-            'receiver_address1' => 'Rodrigo',
-            'receiver_city' => 'São Paulo',
-            'receiver_state' => 'SP',
-            'receiver_postal_code' => '05346000',
-            'receiver_country_code' => 'BR',
-        ));
-
-        $shipper = new PostOffice($shipment);
-        print_r($shipment->getShippers());
-        print_r($shipper->getServices()); die;
-    }
 }
 
 

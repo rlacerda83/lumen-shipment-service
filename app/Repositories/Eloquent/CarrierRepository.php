@@ -11,7 +11,8 @@ class CarrierRepository extends AbstractRepository
 {
 
     public static $rules = [
-        'name' => 'required|max:150'
+        'name' => 'required|max:150',
+        'code' => 'required'
     ];
 
     /**
@@ -45,9 +46,9 @@ class CarrierRepository extends AbstractRepository
     /**
      * Get the comments for the blog post.
      */
-    public function services()
+    public function getServices()
     {
-        return $this->getModel()->hasMany('App\Models\Carrier\Services');
+        return $this->getModel()->hasMany('App\Models\CarrierService')->get();
     }
 
     /**
@@ -64,4 +65,5 @@ class CarrierRepository extends AbstractRepository
 
         return $this->cacheQueryBuilder($key, $queryBuilder, 'paginate', $itemsPage);
     }
+
 }

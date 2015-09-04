@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Shipment;
 
 class Package {
 
@@ -12,7 +12,7 @@ class Package {
 
     /**
      *
-     * @var mixed integer or float - length of package (the longest dimension - sorted and set by constructor)
+     * @var mixed integer or float - length of package
      */
     protected $length = null;
 
@@ -34,6 +34,8 @@ class Package {
      */
     protected $size = null;
 
+    protected $declaredValue = null;
+
     /**
      *
      * @var array package options
@@ -45,34 +47,6 @@ class Package {
      *  boolean 'signature_required'
      */
     protected $options = array();
-
-
-    /**
-     * Constructor sets class properties and delegates calculation of the package size
-     *
-     * @version updated 01/14/2013
-     * @since 12/02/2012
-     * @param int|float $weight the weight of the package - do NOT enclose in quotes!
-     * @param array $dimensions - array elements can be integers or floats - do NOT enclose values in quotes!
-     * @param array $options
-     */
-    public function __construct($weight, array $dimensions, array $options = array()) {
-        // set class weight property
-        $this->weight = $weight;
-        // set the object options
-        $this->options = $options;
-        // order the dimensions from longest to shortest
-        rsort($dimensions, SORT_NUMERIC);
-        // set class dimension properties
-        // note: length is the longest dimension
-        $this->length = $this->roundUpToTenth($dimensions[0]);
-        $this->width = $this->roundUpToTenth($dimensions[1]);
-        $this->height = $this->roundUpToTenth($dimensions[2]);
-        // validate the package parameters
-        $this->isPackageValid();
-        // calculate the package's size and set the class property
-        $this->size = $this->calculatePackageSize();
-    }
 
 
     /**
@@ -88,44 +62,130 @@ class Package {
         return ceil($float * 10) / 10;
     }
 
+    /**
+     * @param $weight
+     * @return $this
+     *
+     * @throws \Exception
+     */
+    public function setWeight($weight)
+    {
+        if (is_float($weight)) {
+            $this->weight = $this->roundUpToTenth($weight);
+        } else {
+            throw new \Exception('Invalid weight.');
+        }
+
+        return $this;
+    }
 
     /**
-     * Validates the package's weight and dimensions
-     *
-     * @version updated 12/09/2012
-     * @since 12/04/2012
-     * @return boolean of package validity
-     * @throws \UnexpectedValueException if the weight or a dimension is invalid
+     * @return float|int|mixed
      */
-    protected function isPackageValid() {
-        // create an array of the values to validate
-        $values = array('weight', 'length', 'width', 'height');
-        // create a variable to hold invalid properties
-        $invalid_properties = null;
-        // loop through the values to check
-        foreach($values as $value) {
-            // make sure that each value is set and not less than or equal to zero
-            if(!isset($this->{$value}) || $this->{$value} <= 0) {
-                // add the invalid property to the array
-                $invalid_properties .= $value . ', ';
-            }
-            else {
-                // make sure that the value evaluates to either an integer or a float
-                if(!filter_var($this->{$value}, FILTER_SANITIZE_NUMBER_INT) &&
-                    !filter_var($this->{$value}, FILTER_SANITIZE_NUMBER_FLOAT)) {
-                    // add the invalid property to the array
-                    $invalid_properties .= $value . ', ';
-                }
-            }
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param $decalredValue
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function seDeclaredValue($decalredValue)
+    {
+        if (is_float($decalredValue)) {
+            $this->declaredValue = $decalredValue;
+        } else {
+            throw new \Exception('Invalid value.');
         }
-        // if there are any invalid properties, throw an exception
-        if(!empty($invalid_properties)) {
-            throw new \UnexpectedValueException('Package object is not valid.  Properties (' . $invalid_properties
-                . ') are invalid or not set.');
+
+        return $this;
+    }
+
+    /**
+     * @return float|int|mixed
+     */
+    public function getDeclaredValue()
+    {
+        return $this->declaredValue;
+    }
+
+
+    /**
+     * @param $length
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function setLength($length)
+    {
+        if (is_float($length)) {
+            $this->length = $this->roundUpToTenth($length);
+        } else {
+            throw new \Exception('Invalid length.');
         }
-        else {
-            return true;
+
+        return $this;
+    }
+
+    /**
+     * @return float|int|mixed
+     */
+    public function getLenght()
+    {
+        return $this->length;
+    }
+
+    /**
+     * @param $height
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function setHeight($height)
+    {
+        if (is_float($height)) {
+            $this->height = $this->roundUpToTenth($height);
+        } else {
+            throw new \Exception('Invalid height.');
         }
+
+        return $this;
+    }
+
+    /**
+     * @return float|int|mixed
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param $width
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function setWidth($width)
+    {
+        if (is_float($width)) {
+            $this->width = $this->roundUpToTenth($width);
+        } else {
+            throw new \Exception('Invalid width.');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return float|int|mixed
+     */
+    public function getWidth()
+    {
+        return $this->width;
     }
 
 
@@ -162,45 +222,6 @@ class Package {
         // calculate and return the girth
         return 2 * ($width + $height);
     }
-
-
-    /**
-     * Returns the specified property of the object or throwns an exception if that property is not set.
-     *
-     * @version updated 12/08/2012
-     * @since 12/08/2012
-     * @param string $property the desired object property
-     * @return mixed the value found for the desired object property
-     * @throws \UnexpectedValueException if the property is not set
-     */
-    public function get($property) {
-        // make sure that the property is set and throw an exception if it is not
-        if(!isset($this->{$property})) {
-            throw new \UnexpectedValueException('There is no data in the requested property (' . $property . ').');
-        }
-        // as long as the property is set, return its value
-        return $this->{$property};
-    }
-
-
-    /**
-     * Returns the specified option value of the object's options array
-     *
-     * @version updated 01/01/2013
-     * @since 01/01/2013
-     * @param string $key the desired key of the options array
-     * @return mixed the value found for the desired array key
-     */
-    public function getOption($key) {
-        // return the option value if it exists
-        if(isset($this->options[$key])) {
-            return $this->options[$key];
-        }
-        else {
-            return null;
-        }
-    }
-
 
     /**
      * Converts an integer or float in pounds to pounds and ounces

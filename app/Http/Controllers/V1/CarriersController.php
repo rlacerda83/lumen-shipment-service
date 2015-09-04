@@ -2,6 +2,9 @@
 
 use App\Models\Carrier;
 use App\Repositories\Eloquent\CarrierRepository;
+use App\Services\Shipment\Package;
+use App\Services\Shipment\Shipment;
+use App\Services\Shipment\ShipmentException;
 use App\Transformers\BaseTransformer;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\UpdateResourceFailedException;
@@ -120,6 +123,38 @@ class CarriersController extends BaseController
         } catch (\Exception $e) {
             throw new DeleteResourceFailedException($e->getMessage());
         }
+    }
+
+    public function getAllRates(Request $request)
+    {
+        $shipment = new Shipment();
+        $shipment->setToPostalCode('');
+
+        $carriers = $this->repository->all();
+
+        foreach ($carriers as $carrier) {
+            $shipment->addCarrier($carrier);
+        }
+
+        //add package
+        try {
+            $package = new Package();
+
+            $package->setWeight(floatval(2.1))
+                ->setHeight(floatval(10))
+                ->setLength(floatval(20))
+                ->setWidth(floatval(15));
+
+            $shipment->setPackage($package);
+            $rates = $shipment->getRates();
+        }
+        catch(ShipmentException $e) {
+            throw new StoreResourceFailedException($e->getMessage(), $e->getFields());
+        }
+
+        //print_r($rates); die;
+        return response()->json(['data' => $rates]);
+		return $this->response->collection($rates[0], new BaseTransformer);
     }
 }
 
