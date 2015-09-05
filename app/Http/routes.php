@@ -17,7 +17,7 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     // Carriers
     $api->get('carriers', 'CarriersController@index');
 
-    $api->get('carriers/rates', 'CarriersController@getAllRates');
+    $api->post('carriers/rates', 'CarriersController@getAllRates');
 
     $api->get('carriers/{id}', 'CarriersController@get');
 

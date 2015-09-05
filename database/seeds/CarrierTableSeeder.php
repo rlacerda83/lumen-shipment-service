@@ -88,6 +88,11 @@ class CarrierTableSeeder extends Seeder {
             ])
 		]);
 
+		$country = Country::find(30);
+
+		$countries = $carrier->belongsToMany('App\Models\Country', 'shipment_carriers_countries', 'carrier_id', 'country_id');
+		$countries->attach($country->id);
+
         $carrierTest = Carrier::create([
             'name' => 'Flat Rate Shipping',
             'code' => 'FRS',
@@ -106,6 +111,13 @@ class CarrierTableSeeder extends Seeder {
             ]),
         ]);
 
+        $allCountry = Country::all();
+
+		$countries = $carrierTest->belongsToMany('App\Models\Country', 'shipment_carriers_countries', 'carrier_id', 'country_id');
+		foreach ($allCountry as $country) {
+			$countries->attach($country->id);
+		}
+		
         $this->command->info('Carrier table seeded!');
 	}
 

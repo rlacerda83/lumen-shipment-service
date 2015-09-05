@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers\V1;
 
 use App\Models\Carrier;
+use App\Models\Country;
 use App\Repositories\Eloquent\CarrierRepository;
+use App\Repositories\Eloquent\CountryRepository;
 use App\Services\Shipment\Package;
 use App\Services\Shipment\Shipment;
 use App\Services\Shipment\ShipmentException;
@@ -25,11 +27,17 @@ class CarriersController extends BaseController
     private $repository;
 
     /**
+     * @var CountryRepository
+     */
+    private $countryRepository;
+
+    /**
      * @param CarrierRepository $repository
      */
-    public function __construct(CarrierRepository $repository)
+    public function __construct(CarrierRepository $repository, CountryRepository $countryRepository)
     {
         $this->repository = $repository;
+        $this->countryRepository = $countryRepository;
     }
 
     /**
@@ -128,33 +136,48 @@ class CarriersController extends BaseController
     public function getAllRates(Request $request)
     {
         $shipment = new Shipment();
-        $shipment->setToPostalCode('');
 
-        $carriers = $this->repository->all();
+        //Destination data
+        $shipment->setToPostalCode($request->input('to_zip', ''))
+            ->setToName($request->input('to_name', ''))
+            ->setToAddress1($request->input('to_address', ''))
+            ->setToCity($request->input('to_city', ''))
+            ->setToState($request->input('to_state', ''))
+            ->setToCountryCode($request->input('to_country', ''));
 
+        //sender data
+        $shipment->setFromPostalCode($request->input('from_zip', env('SHIPMENT_FROM_POSTAL_CODE')))
+            ->setFromName($request->input('from_name', env('SHIPMENT_FROM_NAME')))
+            ->setFromAddress1($request->input('from_address', env('SHIPMENT_FROM_ADDRESS1')))
+            ->setFromCity($request->input('from_city', env('SHIPMENT_FROM_CITY')))
+            ->setFromState($request->input('from_state', env('SHIPMENT_FROM_STATE')))
+            ->setFromCountryCode($request->input('from_country', env('SHIPMENT_FROM_COUNTRY_CODE')));
+
+        $country = $this->countryRepository->findBy('code', $shipment->getToCountryCode());
+        if(!$country) {
+            throw new StoreResourceFailedException('Invalid country. Code "'.$shipment->getToCountryCode(). '" not found');
+        }
+
+        $carriers = $this->repository->allWithCountry($country);
         foreach ($carriers as $carrier) {
             $shipment->addCarrier($carrier);
         }
 
-        //add package
         try {
             $package = new Package();
 
-            $package->setWeight(floatval(2.1))
-                ->setHeight(floatval(10))
-                ->setLength(floatval(20))
-                ->setWidth(floatval(15));
+            $package->setWeight(floatval($request->input('parcel_weight', '')))
+                ->setHeight(floatval($request->input('parcel_height', '')))
+                ->setLength(floatval($request->input('parcel_length', '')))
+                ->setWidth(floatval($request->input('parcel_width', '')));
 
             $shipment->setPackage($package);
             $rates = $shipment->getRates();
-        }
-        catch(ShipmentException $e) {
+        } catch(ShipmentException $e) {
             throw new StoreResourceFailedException($e->getMessage(), $e->getFields());
         }
 
-        //print_r($rates); die;
         return response()->json(['data' => $rates]);
-		return $this->response->collection($rates[0], new BaseTransformer);
     }
 }
 

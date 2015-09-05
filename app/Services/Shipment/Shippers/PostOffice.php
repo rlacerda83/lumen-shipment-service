@@ -29,12 +29,12 @@ class PostOffice extends ShippersAbstract {
     ];
 
     public static $messages = [
-        'sCepOrigem.required' => 'Field fromPostalCode is required',
-        'sCepDestino.required' => 'Field toPostalCode is required',
-        'nVlPeso.required' => 'Package weigth is required',
-        'nVlComprimento.required' => 'Package length is required',
-        'nVlAltura.required' => 'Package heigth is required',
-        'nVlLargura.required' => 'Package width is required',
+        'sCepOrigem.required' => 'Field from_zip is required',
+        'sCepDestino.required' => 'Field to_zip is required',
+        'nVlPeso.required' => 'Field parcel_weight is required',
+        'nVlComprimento.required' => 'Field parcel_length is required',
+        'nVlAltura.required' => 'Field parcel_heigth is required',
+        'nVlLargura.required' => 'Field parcel_width is required',
         'sCdMaoPropria.required' => 'Field ownHands is required',
         'nVlValorDeclarado.required' => 'Field declaredValue is required',
         'sCdAvisoRecebimento.required' => 'Field deliveryNotification is required',

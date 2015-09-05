@@ -2,17 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Carrier;
-use App\Models\Country;
 use Elocache\Repositories\Eloquent\AbstractRepository;
 use Illuminate\Http\Request;
 use QueryParser\ParserRequest;
 use Validator;
 
-class CarrierRepository extends AbstractRepository
+class CountryRepository extends AbstractRepository
 {
-
-    protected $enableCaching = true;
 
     public static $rules = [
         'name' => 'required|max:150',
@@ -26,8 +22,9 @@ class CarrierRepository extends AbstractRepository
      */
     public function model()
     {
-        return 'App\Models\Carrier';
+        return 'App\Models\Country';
     }
+
 
     /**
      * @param Request $request
@@ -47,35 +44,9 @@ class CarrierRepository extends AbstractRepository
         return true;
     }
 
-    public function allWithCountry(Country $country)
-    {
-        $query = $this->queryBuilder
-            ->select(Carrier::getTableName().'.*')
-            ->join('shipment_carriers_countries', 'shipment_carriers_countries.carrier_id', '=', Carrier::getTableName() .'.id')
-            ->join(Country::getTableName(), 'shipment_carriers_countries.country_id', '=', Country::getTableName() .'.id')
-            ->where(Country::getTableName().'.id', $country->id);
-
-        $key = md5($query->toSql().$country->id);
-        return $this->cacheQueryBuilder($key, $query);
-    }
-
-    /**
-     * Get the comments for the blog post.
-     */
-    public function getServices()
-    {
-        return $this->getModel()->hasMany('App\Models\CarrierService')->get();
-    }
-
-    public function getCountries()
-    {
-        return Carrier::all()->belongsToMany('App\Models\Country', 'shipment_carriers_countries');
-    }
-
     /**
      * @param Request $request
      * @param int $itemsPage
-     *
      * @return mixed
      */
     public function findAllPaginate(Request $request, $itemsPage = 30)
@@ -86,5 +57,4 @@ class CarrierRepository extends AbstractRepository
 
         return $this->cacheQueryBuilder($key, $queryBuilder, 'paginate', $itemsPage);
     }
-
 }

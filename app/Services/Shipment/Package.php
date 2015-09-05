@@ -70,7 +70,7 @@ class Package {
      */
     public function setWeight($weight)
     {
-        if (is_float($weight)) {
+        if (is_float($weight) && $weight > 0) {
             $this->weight = $this->roundUpToTenth($weight);
         } else {
             throw new \Exception('Invalid weight.');
@@ -121,7 +121,7 @@ class Package {
      */
     public function setLength($length)
     {
-        if (is_float($length)) {
+        if (is_float($length) && $length > 0) {
             $this->length = $this->roundUpToTenth($length);
         } else {
             throw new \Exception('Invalid length.');
@@ -146,7 +146,7 @@ class Package {
      */
     public function setHeight($height)
     {
-        if (is_float($height)) {
+        if (is_float($height) && $height > 0) {
             $this->height = $this->roundUpToTenth($height);
         } else {
             throw new \Exception('Invalid height.');
@@ -171,7 +171,7 @@ class Package {
      */
     public function setWidth($width)
     {
-        if (is_float($width)) {
+        if (is_float($width) && $width > 0) {
             $this->width = $this->roundUpToTenth($width);
         } else {
             throw new \Exception('Invalid width.');

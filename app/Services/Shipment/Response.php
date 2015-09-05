@@ -43,7 +43,7 @@ class Response
 
     public function setPrice($price)
     {
-        $this->price = number_format(str_replace(',', '.', $price), 2);
+        $this->price = number_format( (float) str_replace(',', '.', $price), 2);
         return $this;
     }
 

@@ -13,6 +13,8 @@ class Response extends \App\Services\Shipment\Response
 
     protected $homeDelivery;
 
+    protected $priceWithouAdditional;
+
     protected $deliverySaturday;
 
     public function __construct(\stdClass $response)
@@ -28,23 +30,30 @@ class Response extends \App\Services\Shipment\Response
         $this->setOwnHandsPrice($response->ValorMaoPropria);
         $this->setDeliveryNotificationPrice($response->ValorAvisoRecebimento);
         $this->setDeclaredValuePrice($response->ValorValorDeclarado);
+        $this->setPriceWithoutAdditional($response->ValorSemAdicionais);
+    }
+
+    private function setPriceWithoutAdditional($priceWithouAdditional)
+    {
+        $this->priceWithouAdditional = number_format( (float) str_replace(',', '.', $priceWithouAdditional), 2);
+        return $this;
     }
 
     private function setOwnHandsPrice($ownHandsPrice)
     {
-        $this->ownHandsPrice = (float) str_replace(',', '.', $ownHandsPrice);
+        $this->ownHandsPrice = number_format( (float) str_replace(',', '.', $ownHandsPrice), 2);
         return $this;
     }
 
     private function setDeliveryNotificationPrice($deliveryNotificationPrice)
     {
-        $this->deliveryNotificationPrice = (float) str_replace(',', '.', $deliveryNotificationPrice);
+        $this->deliveryNotificationPrice = number_format( (float) str_replace(',', '.', $deliveryNotificationPrice), 2);
         return $this;
     }
 
     private function setDeclaredValuePrice($declaredValuePrice)
     {
-        $this->declaredValuePrice = (float) str_replace(',', '.', $declaredValuePrice);
+        $this->declaredValuePrice = number_format( (float) str_replace(',', '.', $declaredValuePrice), 2);
         return $this;
     }
 
@@ -58,6 +67,11 @@ class Response extends \App\Services\Shipment\Response
     {
         $this->deliverySaturday = (boolean) ($deliverySaturday);
         return $this;
+    }
+
+    public function gePriceWithoutAdditional()
+    {
+        return $this->priceWithouAdditional;
     }
 
     public function getOwnHandsPrice()

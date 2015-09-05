@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Carrier;
-use App\Models\CarrierService;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 
 class CountryTableSeeder extends Seeder {
@@ -19,7 +18,7 @@ class CountryTableSeeder extends Seeder {
 		$countries = $this->getCountryArray();
 
 		foreach ($countries as $code => $name) {
-			Carrier::create([
+			Country::create([
 				'name' => $name,
 				'code' => $code
 			]);
@@ -28,7 +27,7 @@ class CountryTableSeeder extends Seeder {
         $this->command->info('Country table seeded!');
 	}
 
-	private getCountryArray()
+	private function getCountryArray()
 	{
 		return [
 			"AF" => "Afghanistan",
@@ -294,8 +293,8 @@ class CountryTableSeeder extends Seeder {
 			"YE" => "Yemen",
 			"ZM" => "Zambia",
 			"ZW" => "Zimbabwe",
-			"AX" => "Åland Islands",
-		]
+			"AX" => "Åland Islands"
+		];
 	}
 
 }

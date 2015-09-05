@@ -52,13 +52,6 @@ class Shipment {
     {
         $container = new Container();
         $this->carrierRepository = new CarrierRepository($container);
-
-        $this->fromName = env('SHIPMENT_FROM_NAME');
-        $this->fromAddress1 = env('SHIPMENT_FROM_ADDRESS1');
-        $this->fromCity = env('SHIPMENT_FROM_CITY');
-        $this->fromState = env('SHIPMENT_FROM_STATE');
-        $this->fromPostalCode = env('SHIPMENT_FROM_POSTAL_CODE');
-        $this->fromCountryCode = env('SHIPMENT_FROM_COUNTRY_CODE');
     }
 
     public function setFromName($fromName)
