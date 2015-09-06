@@ -80,4 +80,19 @@ class CountryRepository extends AbstractRepository
 
         return $this->cacheQueryBuilder($key, $queryBuilder, 'paginate', $itemsPage);
     }
+
+    /**
+     * @param Request $request
+     * @param int $itemsPage
+     *
+     * @return mixed
+     */
+    public function findAllPaginate(Request $request, $itemsPage = 30)
+    {
+        $key = md5($itemsPage.$request->getRequestUri());
+        $queryParser = new ParserRequest($request, $this->getModel());
+        $queryBuilder = $queryParser->parser();
+
+        return $this->cacheQueryBuilder($key, $queryBuilder, 'paginate', $itemsPage);
+    }
 }
