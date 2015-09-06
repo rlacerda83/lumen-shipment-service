@@ -11,12 +11,11 @@ use Validator;
 
 class CarrierRepository extends AbstractRepository
 {
-
     protected $enableCaching = true;
 
     public static $rules = [
         'name' => 'required|max:150',
-        'code' => 'required'
+        'code' => 'required',
     ];
 
     /**
@@ -51,17 +50,19 @@ class CarrierRepository extends AbstractRepository
     {
         $query = $this->getModel()->newQuery()
             ->select(Carrier::getTableName().'.*')
-            ->join('shipment_carriers_countries', 'shipment_carriers_countries.carrier_id', '=', Carrier::getTableName() .'.id')
-            ->join(Country::getTableName(), 'shipment_carriers_countries.country_id', '=', Country::getTableName() .'.id')
+            ->join('shipment_carriers_countries', 'shipment_carriers_countries.carrier_id', '=', Carrier::getTableName().'.id')
+            ->join(Country::getTableName(), 'shipment_carriers_countries.country_id', '=', Country::getTableName().'.id')
             ->where(Country::getTableName().'.id', $country->id);
 
         $key = md5($query->toSql().$country->id);
+
         return $this->cacheQueryBuilder($key, $query);
     }
 
     public function getServices()
     {
         $query = $this->getModel()->hasMany('App\Models\CarrierService');
+
         return $this->cacheQueryBuilder(md5('services'.$this->getModel()->id), $query);
     }
 
@@ -74,13 +75,14 @@ class CarrierRepository extends AbstractRepository
     {
         $data = $this->getCountries()->where($attribute, $value)->get();
         $key = 'countriesBy'.$attribute.$value.$this->getModel()->id;
+
         return $this->cacheGenericData(md5($key), $data, 'CarriersCountries');
     }
 
     public function addCountry(Country $country)
     {
         $countCountries = $this->getCountriesBy(Country::getTableName().'.code', $country->code)->count();
-        if($countCountries == 0) {
+        if ($countCountries == 0) {
             $this->getCountries()->attach($country->id);
         }
         $this->flushCacheByTags('CarriersCountries');
@@ -106,5 +108,4 @@ class CarrierRepository extends AbstractRepository
 
         return $this->cacheQueryBuilder($key, $queryBuilder, 'paginate', $itemsPage);
     }
-
 }

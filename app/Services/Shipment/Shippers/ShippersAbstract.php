@@ -5,10 +5,9 @@ namespace App\Services\Shipment\Shippers;
 use App\Services\Shipment\Shipment;
 use App\Models\Carrier;
 
-Abstract class ShippersAbstract {
-
+abstract class ShippersAbstract
+{
     /**
-     *
      * @var Carrier
      */
     protected $carrier = null;
@@ -18,7 +17,6 @@ Abstract class ShippersAbstract {
     protected $config;
 
     /**
-     *
      * @var Shipment
      */
     protected $shipment;
@@ -38,9 +36,10 @@ Abstract class ShippersAbstract {
     /**
      * @param Shipment $shipment
      */
-    public function setShipment(Shipment $shipment) {
+    public function setShipment(Shipment $shipment)
+    {
         // validate the Shipment object
-        if(!($shipment instanceof Shipment)) {
+        if (! ($shipment instanceof Shipment)) {
             throw new \InvalidArgumentException('Shipment is not a valid object type.');
         }
         // set the object property
@@ -58,11 +57,8 @@ Abstract class ShippersAbstract {
     }
 
     abstract public function initConfig();
-    
 
     abstract public function getRate();
 
-
     abstract public function createLabel();
-
 }

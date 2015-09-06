@@ -6,7 +6,6 @@ use League\Fractal\TransformerAbstract;
 
 class BaseTransformer extends TransformerAbstract
 {
-
     /**
      * @param $model
      * @return mixed
@@ -19,5 +18,4 @@ class BaseTransformer extends TransformerAbstract
 
         return $model->toArray();
     }
-
 }

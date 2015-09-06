@@ -1,30 +1,24 @@
-<?php namespace App\Http\Controllers\V1;
+<?php
+
+namespace App\Http\Controllers\V1;
 
 use App\Models\Country;
-use App\Repositories\Eloquent\CarrierRepository;
 use App\Repositories\Eloquent\CountryRepository;
-use App\Services\Shipment\Package;
-use App\Services\Shipment\Shipment;
-use App\Services\Shipment\ShipmentException;
 use App\Transformers\BaseTransformer;
 use Dingo\Api\Exception\StoreResourceFailedException;
-use Dingo\Api\Exception\UpdateResourceFailedException;
 use Illuminate\Http\Request;
 use Dingo\Api\Routing\Helpers;
-use Dingo\Api\Exception\DeleteResourceFailedException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use QueryParser\QueryParserException;
 
 class CountriesController extends BaseController
 {
-
     use Helpers;
 
     /**
      * @var CountryRepository
      */
     private $repository;
-
 
     /**
      * @param CountryRepository $repository
@@ -55,12 +49,10 @@ class CountriesController extends BaseController
     public function get($code)
     {
         $country = $this->repository->findBy('code', $code);
-        if(!$country) {
+        if (! $country) {
             throw new StoreResourceFailedException("Country '{$code}' not found");
         }
 
         return $this->response->item($country, new BaseTransformer);
     }
 }
-
-

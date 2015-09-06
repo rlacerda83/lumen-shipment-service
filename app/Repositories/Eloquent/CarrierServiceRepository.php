@@ -11,14 +11,13 @@ use Validator;
 
 class CarrierServiceRepository extends AbstractRepository
 {
-
     protected $tableCarriers = null;
     protected $tableCarriersServices = null;
 
     public static $rules = [
         'name' => 'required|max:150',
-        'carrier_id' => "required|exists:shipment_carriers,id",
-        'code' => 'required'
+        'carrier_id' => 'required|exists:shipment_carriers,id',
+        'code' => 'required',
     ];
 
     public function __construct(App $app)

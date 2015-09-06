@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\V1;
+<?php
+
+namespace App\Http\Controllers\V1;
 
 use App\Models\Carrier;
 use App\Models\Country;
@@ -18,7 +20,6 @@ use QueryParser\QueryParserException;
 
 class CarriersController extends BaseController
 {
-
     use Helpers;
 
     /**
@@ -69,6 +70,7 @@ class CarriersController extends BaseController
 
         try {
             $carrier = $this->repository->create($request->all());
+
             return $this->response->item($carrier, new BaseTransformer)->setStatusCode(201);
         } catch (\Exception $e) {
             throw new StoreResourceFailedException($e->getMessage());
@@ -85,7 +87,7 @@ class CarriersController extends BaseController
     public function update(Request $request, $id)
     {
         $carrier = $this->repository->find($id);
-        if(!$carrier) {
+        if (! $carrier) {
             throw new UpdateResourceFailedException('Carrier not found');
         }
 
@@ -106,7 +108,7 @@ class CarriersController extends BaseController
     public function get($id)
     {
         $carrier = $this->repository->find($id);
-        if(!$carrier) {
+        if (! $carrier) {
             throw new StoreResourceFailedException('Carrier not found');
         }
 
@@ -122,11 +124,12 @@ class CarriersController extends BaseController
     {
         try {
             $carrier = $this->repository->find($id);
-            if(!$carrier) {
+            if (! $carrier) {
                 throw new DeleteResourceFailedException('Carrier not found');
             }
 
             $carrier->delete();
+
             return $this->response->noContent();
         } catch (\Exception $e) {
             throw new DeleteResourceFailedException($e->getMessage());
@@ -159,8 +162,8 @@ class CarriersController extends BaseController
             ->setFromCountryCode($request->input('from_country', env('SHIPMENT_FROM_COUNTRY_CODE')));
 
         $country = $this->countryRepository->findBy('code', $shipment->getToCountryCode());
-        if(!$country) {
-            throw new StoreResourceFailedException('Invalid country. Code "'.$shipment->getToCountryCode(). '" not found');
+        if (! $country) {
+            throw new StoreResourceFailedException('Invalid country. Code "'.$shipment->getToCountryCode().'" not found');
         }
 
         $carriers = $this->repository->allWithCountry($country);
@@ -178,12 +181,10 @@ class CarriersController extends BaseController
 
             $shipment->setPackage($package);
             $rates = $shipment->getRates();
-        } catch(ShipmentException $e) {
+        } catch (ShipmentException $e) {
             throw new StoreResourceFailedException($e->getMessage(), $e->getFields());
         }
 
         return response()->json(['data' => $rates]);
     }
 }
-
-

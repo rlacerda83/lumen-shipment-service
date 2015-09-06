@@ -4,7 +4,6 @@ namespace App\Services\Shipment\Shippers\PostOffice;
 
 class Response extends \App\Services\Shipment\Response
 {
-
     protected $ownHandsPrice;
 
     protected $deliveryNotificationPrice;
@@ -35,37 +34,43 @@ class Response extends \App\Services\Shipment\Response
 
     private function setPriceWithoutAdditional($priceWithouAdditional)
     {
-        $this->priceWithouAdditional = number_format( (float) str_replace(',', '.', $priceWithouAdditional), 2);
+        $this->priceWithouAdditional = number_format((float) str_replace(',', '.', $priceWithouAdditional), 2);
+
         return $this;
     }
 
     private function setOwnHandsPrice($ownHandsPrice)
     {
-        $this->ownHandsPrice = number_format( (float) str_replace(',', '.', $ownHandsPrice), 2);
+        $this->ownHandsPrice = number_format((float) str_replace(',', '.', $ownHandsPrice), 2);
+
         return $this;
     }
 
     private function setDeliveryNotificationPrice($deliveryNotificationPrice)
     {
-        $this->deliveryNotificationPrice = number_format( (float) str_replace(',', '.', $deliveryNotificationPrice), 2);
+        $this->deliveryNotificationPrice = number_format((float) str_replace(',', '.', $deliveryNotificationPrice), 2);
+
         return $this;
     }
 
     private function setDeclaredValuePrice($declaredValuePrice)
     {
-        $this->declaredValuePrice = number_format( (float) str_replace(',', '.', $declaredValuePrice), 2);
+        $this->declaredValuePrice = number_format((float) str_replace(',', '.', $declaredValuePrice), 2);
+
         return $this;
     }
 
     private function setHomeDelivery($homeDelivery)
     {
         $this->homeDelivery = (boolean) ($homeDelivery);
+
         return $this;
     }
 
     private function setDeliverySaturday($deliverySaturday)
     {
         $this->deliverySaturday = (boolean) ($deliverySaturday);
+
         return $this;
     }
 
@@ -88,7 +93,6 @@ class Response extends \App\Services\Shipment\Response
     {
         return $this->declaredValuePrice;
     }
-
 
     public function getHomeDelivery()
     {

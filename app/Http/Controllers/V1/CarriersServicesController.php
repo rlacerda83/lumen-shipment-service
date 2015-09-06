@@ -1,10 +1,11 @@
-<?php namespace App\Http\Controllers\V1;
+<?php
+
+namespace App\Http\Controllers\V1;
 
 use App\Models\Carrier;
 use App\Models\CarrierService;
 use App\Repositories\Eloquent\CarrierRepository;
 use App\Repositories\Eloquent\CarrierServiceRepository;
-use App\Services\Shipment;
 use App\Transformers\BaseTransformer;
 use Dingo\Api\Exception\UpdateResourceFailedException;
 use Illuminate\Http\Request;
@@ -16,7 +17,6 @@ use QueryParser\QueryParserException;
 
 class CarriersServicesController extends BaseController
 {
-
     use Helpers;
 
     /**
@@ -44,7 +44,7 @@ class CarriersServicesController extends BaseController
     public function index(Request $request, $idCarrier)
     {
         $carrier = $this->carrierRepository->find($idCarrier);
-        if(!$carrier) {
+        if (! $carrier) {
             throw new UpdateResourceFailedException('Carrier not found');
         }
 
@@ -73,6 +73,7 @@ class CarriersServicesController extends BaseController
 
         try {
             $service = $this->repository->create($request->all());
+
             return $this->response->item($service, new BaseTransformer)->setStatusCode(201);
         } catch (\Exception $e) {
             throw new StoreResourceFailedException($e->getMessage());
@@ -122,12 +123,12 @@ class CarriersServicesController extends BaseController
     protected function getService($idCarrier, $idService)
     {
         $carrier = $this->carrierRepository->find($idCarrier);
-        if(!$carrier) {
+        if (! $carrier) {
             throw new UpdateResourceFailedException('Carrier not found');
         }
 
         $service = $this->repository->findByIdAndCarrier($idService, $carrier);
-        if(!$service) {
+        if (! $service) {
             throw new UpdateResourceFailedException('Service not found');
         }
 
@@ -144,16 +145,15 @@ class CarriersServicesController extends BaseController
     {
         try {
             $service = $this->getService($idCarrier, $idService);
-            if(!$service) {
+            if (! $service) {
                 throw new DeleteResourceFailedException('Carrier not found');
             }
 
             $service->delete();
+
             return $this->response->noContent();
         } catch (\Exception $e) {
             throw new DeleteResourceFailedException($e->getMessage());
         }
     }
 }
-
-

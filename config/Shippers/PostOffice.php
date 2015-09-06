@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'url' => 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL',
     'company' => '',
     'password' => '',
@@ -10,8 +10,8 @@ return array(
     'noticeReceiving' => 'N',
     'deliveryTimeDefault' => 5,
     'priceDefault' => 10,00,
-    'serviceDefault' => 'T1'
-);
+    'serviceDefault' => 'T1',
+];
 //
 //<?xml version="1.0" encoding="UTF-8"?>
 <!--<config>-->

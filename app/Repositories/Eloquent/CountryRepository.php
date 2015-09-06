@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Carrier;
-use App\Models\Country;
 use Elocache\Repositories\Eloquent\AbstractRepository;
 use Illuminate\Http\Request;
 use QueryParser\ParserRequest;
@@ -12,14 +11,13 @@ use Illuminate\Container\Container as App;
 
 class CountryRepository extends AbstractRepository
 {
-
     protected $tableCarriers = null;
     protected $tableCountry = null;
     protected $pivotTable = 'shipment_carriers_countries';
 
     public static $rules = [
         'name' => 'required|max:150',
-        'code' => 'required'
+        'code' => 'required',
     ];
 
     public function __construct(App $app)
@@ -38,7 +36,6 @@ class CountryRepository extends AbstractRepository
     {
         return 'App\Models\Country';
     }
-
 
     /**
      * @param Request $request
@@ -71,8 +68,8 @@ class CountryRepository extends AbstractRepository
 
         $query = $this->getModel()->newQuery()
             ->select($this->tableCountry.'.*')
-            ->join($this->pivotTable, $this->pivotTable.'.country_id', '=', $this->tableCountry .'.id')
-            ->join($this->tableCarriers, $this->pivotTable .'.carrier_id', '=', $this->tableCarriers .'.id')
+            ->join($this->pivotTable, $this->pivotTable.'.country_id', '=', $this->tableCountry.'.id')
+            ->join($this->tableCarriers, $this->pivotTable.'.carrier_id', '=', $this->tableCarriers.'.id')
             ->where($this->tableCarriers.'.id', $idCarrier);
 
         $queryParser = new ParserRequest($request, $this->getModel(), $query);

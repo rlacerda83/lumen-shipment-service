@@ -1,7 +1,7 @@
 <?php
 
 // configuration options for all shippers
-$config = array();
+$config = [];
 
 // can be 'LB' for pounds or 'KG' for kilograms
 $config['weight_unit'] = env('SHIPMENT_WEIGHT_UNIT', 'KG');
@@ -10,14 +10,14 @@ $config['weight_unit'] = env('SHIPMENT_WEIGHT_UNIT', 'KG');
 $config['dimension_unit'] = env('SHIPMENT_DIMENSION_UNIT', 'CM');
 
 // BRL for R$
-$config['currency_code'] =  env('SHIPMENT_CURRENCY_CODE', 'BRL');
+$config['currency_code'] = env('SHIPMENT_CURRENCY_CODE', 'BRL');
 
 // if true and if a receiver email address is set, the tracking number will be emailed to the receiver by the
 // shipping vendor
-$config['email_tracking_number_to_receiver'] =  env('SHIPMENT_EMAIL_TRACKING_NUMBER', true);
+$config['email_tracking_number_to_receiver'] = env('SHIPMENT_EMAIL_TRACKING_NUMBER', true);
 
 // shipper information
-$config['shipper_name'] =  env('SHIPMENT_SHIPPER_NAME', 'Rodrigo Lacerda');
+$config['shipper_name'] = env('SHIPMENT_SHIPPER_NAME', 'Rodrigo Lacerda');
 $config['shipper_phone'] = env('SHIPMENT_SHIPPER_PHONE', '');
 $config['shipper_email'] = env('SHIPMENT_SHIPPER_EMAIL', 'r.lacerda83@gmail.com');
 $config['shipper_address1'] = env('SHIPMENT_SHIPPER_ADDRESS1', '');

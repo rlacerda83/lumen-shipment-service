@@ -3,18 +3,17 @@
 namespace App\Services\Shipment\Shippers;
 
 use App\Services\Shipment\Response;
-use App\Services\Shipment\Shippers\ShippersAbstract;
 
-class FlatRateShipping extends ShippersAbstract {
-
+class FlatRateShipping extends ShippersAbstract
+{
     const PRICE = '10.50';
 
     public function initConfig()
     {
-
     }
 
-    public function getRate() {
+    public function getRate()
+    {
         $rates = [];
 
         foreach ($this->services as $service) {
@@ -30,8 +29,7 @@ class FlatRateShipping extends ShippersAbstract {
         return $rates;
     }
 
-    public function createLabel(array $params=array()) {
-
+    public function createLabel(array $params = [])
+    {
     }
-
 }
