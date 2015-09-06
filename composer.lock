@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a18684e9e5aa69201fec4a622e563f1a",
+    "hash": "c3d5804247bf0d7fb2c58f6cb1d9555e",
     "packages": [
         {
             "name": "danielstjules/stringy",
@@ -2137,16 +2137,16 @@
         },
         {
             "name": "rlacerda83/lumem-elocache",
-            "version": "dev-master",
+            "version": "v1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rlacerda83/lumem-elocache.git",
-                "reference": "3adba1d31850fd47a103168cba12e64257fa99ce"
+                "reference": "7318ed01ae70ca012c4c9ac398169b8c42161a19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rlacerda83/lumem-elocache/zipball/3adba1d31850fd47a103168cba12e64257fa99ce",
-                "reference": "3adba1d31850fd47a103168cba12e64257fa99ce",
+                "url": "https://api.github.com/repos/rlacerda83/lumem-elocache/zipball/7318ed01ae70ca012c4c9ac398169b8c42161a19",
+                "reference": "7318ed01ae70ca012c4c9ac398169b8c42161a19",
                 "shasum": ""
             },
             "require": {
@@ -2182,7 +2182,7 @@
                 "lumen",
                 "memcached"
             ],
-            "time": "2015-09-06 03:11:18"
+            "time": "2015-09-06 03:12:41"
         },
         {
             "name": "rlacerda83/query-parser",
@@ -4004,8 +4004,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "dingo/api": 20,
-        "rlacerda83/query-parser": 20,
-        "rlacerda83/lumem-elocache": 20
+        "rlacerda83/query-parser": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

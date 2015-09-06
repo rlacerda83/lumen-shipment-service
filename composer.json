@@ -1,7 +1,7 @@
 {
-    "name": "rlacerda83/lumem-microservice-shippment",
-    "description": "Microservice for management shippment.",
-    "keywords": ["shipping", "laravel", "lumen", "microservice", "postman"],
+    "name": "rlacerda83/lumem-microservice-shipment",
+    "description": "Microservice for management shipment.",
+    "keywords": ["shipping", "laravel", "lumen", "microservice", "shipment", "correios", "ups"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -11,7 +11,7 @@
         "jeremeamia/superclosure": "~2.0",
         "dingo/api": "@dev",
         "rlacerda83/query-parser": "@dev",
-        "rlacerda83/lumem-elocache": "@dev"
+        "rlacerda83/lumem-elocache": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
