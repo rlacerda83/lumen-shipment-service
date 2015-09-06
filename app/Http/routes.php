@@ -27,12 +27,7 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
 
     $api->delete('carriers/{id}', 'CarriersController@delete');
 
-
-
-    //$api->get('carriers/{idCarrier}/rates', 'CarriersController@getAllRates');
-
-
-    //Services
+    //Carriers Services
     $api->get('carriers/{idCarrier}/services', 'CarriersServicesController@index');
 
     $api->get('carriers/{idCarrier}/services/{idService}', 'CarriersServicesController@get');
@@ -42,6 +37,15 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->put('carriers/{idCarrier}/services/{idService}','CarriersServicesController@update');
 
     $api->delete('carriers/{idCarrier}/services/{idService}', 'CarriersServicesController@delete');
+
+    //Carriers Countries
+    $api->get('carriers/{idCarrier}/countries', 'CarriersCountriesController@index');
+
+    $api->get('carriers/{idCarrier}/countries/{code}', 'CarriersCountriesController@get');
+
+    $api->post('carriers/{idCarrier}/countries','CarriersCountriesController@create');
+
+    $api->delete('carriers/{idCarrier}/countries', 'CarriersCountriesController@delete');
 });
 
 

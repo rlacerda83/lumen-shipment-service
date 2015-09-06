@@ -133,6 +133,11 @@ class CarriersController extends BaseController
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
     public function getAllRates(Request $request)
     {
         $shipment = new Shipment();

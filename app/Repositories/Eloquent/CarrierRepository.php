@@ -49,7 +49,7 @@ class CarrierRepository extends AbstractRepository
 
     public function allWithCountry(Country $country)
     {
-        $query = $this->queryBuilder
+        $query = $this->getModel()->newQuery()
             ->select(Carrier::getTableName().'.*')
             ->join('shipment_carriers_countries', 'shipment_carriers_countries.carrier_id', '=', Carrier::getTableName() .'.id')
             ->join(Country::getTableName(), 'shipment_carriers_countries.country_id', '=', Country::getTableName() .'.id')
@@ -59,17 +59,37 @@ class CarrierRepository extends AbstractRepository
         return $this->cacheQueryBuilder($key, $query);
     }
 
-    /**
-     * Get the comments for the blog post.
-     */
     public function getServices()
     {
-        return $this->getModel()->hasMany('App\Models\CarrierService')->get();
+        $query = $this->getModel()->hasMany('App\Models\CarrierService');
+        return $this->cacheQueryBuilder(md5('services'.$this->getModel()->id), $query);
     }
 
     public function getCountries()
     {
-        return Carrier::all()->belongsToMany('App\Models\Country', 'shipment_carriers_countries');
+        return $this->getModel()->belongsToMany('App\Models\Country', 'shipment_carriers_countries');
+    }
+
+    public function getCountriesBy($attribute, $value)
+    {
+        $data = $this->getCountries()->where($attribute, $value)->get();
+        $key = 'countriesBy'.$attribute.$value.$this->getModel()->id;
+        return $this->cacheGenericData(md5($key), $data, 'CarriersCountries');
+    }
+
+    public function addCountry(Country $country)
+    {
+        $countCountries = $this->getCountriesBy(Country::getTableName().'.code', $country->code)->count();
+        if($countCountries == 0) {
+            $this->getCountries()->attach($country->id);
+        }
+        $this->flushCacheByTags('CarriersCountries');
+    }
+
+    public function removeCountry(Country $country)
+    {
+        $this->getCountries()->detach($country->id);
+        $this->flushCacheByTags('CarriersCountries');
     }
 
     /**

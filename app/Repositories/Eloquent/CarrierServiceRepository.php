@@ -48,7 +48,7 @@ class CarrierServiceRepository extends AbstractRepository
 
     public function findByIdAndCarrier($id, Carrier $carrier)
     {
-        $query = $this->queryBuilder
+        $query = $this->getModel()->newQuery()
             ->select($this->tableCarriersServices.'.*')
             ->join($this->tableCarriers, $this->tableCarriers.'.id', '=', $this->tableCarriersServices.'.carrier_id')
             ->where($this->tableCarriersServices.'.id', $id)
@@ -86,7 +86,7 @@ class CarrierServiceRepository extends AbstractRepository
     {
         $key = md5($itemsPage.$request->getRequestUri());
 
-        $query = $this->queryBuilder
+        $query = $this->getModel()->newQuery()
             ->select($this->tableCarriersServices.'.*')
             ->join($this->tableCarriers, $this->tableCarriers.'.id', '=', $this->tableCarriersServices.'.carrier_id')
             ->where($this->tableCarriers.'.id', $idCarrier);

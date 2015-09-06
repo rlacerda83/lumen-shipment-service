@@ -5,7 +5,6 @@ use App\Models\CarrierService;
 use App\Repositories\Eloquent\CarrierRepository;
 use App\Repositories\Eloquent\CarrierServiceRepository;
 use App\Services\Shipment;
-use App\Services\Shippers\PostOffice;
 use App\Transformers\BaseTransformer;
 use Dingo\Api\Exception\UpdateResourceFailedException;
 use Illuminate\Http\Request;
@@ -50,7 +49,7 @@ class CarriersServicesController extends BaseController
         }
 
         try {
-            $paginator = $this->repository->findAllPaginate($request, $idCarrier, 5);
+            $paginator = $this->repository->findAllPaginate($request, $idCarrier);
 
             return $this->response->paginator($paginator, new BaseTransformer);
         } catch (QueryParserException $e) {

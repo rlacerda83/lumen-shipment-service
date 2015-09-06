@@ -2141,12 +2141,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rlacerda83/lumem-elocache.git",
-                "reference": "bf7d55d61aeb64d7d1ec14c15f7d067cce5e90fb"
+                "reference": "3adba1d31850fd47a103168cba12e64257fa99ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rlacerda83/lumem-elocache/zipball/bf7d55d61aeb64d7d1ec14c15f7d067cce5e90fb",
-                "reference": "bf7d55d61aeb64d7d1ec14c15f7d067cce5e90fb",
+                "url": "https://api.github.com/repos/rlacerda83/lumem-elocache/zipball/3adba1d31850fd47a103168cba12e64257fa99ce",
+                "reference": "3adba1d31850fd47a103168cba12e64257fa99ce",
                 "shasum": ""
             },
             "require": {
@@ -2182,7 +2182,7 @@
                 "lumen",
                 "memcached"
             ],
-            "time": "2015-08-31 00:25:08"
+            "time": "2015-09-06 03:11:18"
         },
         {
             "name": "rlacerda83/query-parser",
