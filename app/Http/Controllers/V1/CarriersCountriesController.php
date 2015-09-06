@@ -1,12 +1,11 @@
-<?php namespace App\Http\Controllers\V1;
+<?php
+
+namespace App\Http\Controllers\V1;
 
 use App\Models\Carrier;
-use App\Models\CarrierService;
 use App\Models\Country;
 use App\Repositories\Eloquent\CarrierRepository;
-use App\Repositories\Eloquent\CarrierServiceRepository;
 use App\Repositories\Eloquent\CountryRepository;
-use App\Services\Shipment;
 use App\Transformers\BaseTransformer;
 use Dingo\Api\Exception\UpdateResourceFailedException;
 use Illuminate\Http\Request;
@@ -18,7 +17,6 @@ use QueryParser\QueryParserException;
 
 class CarriersCountriesController extends BaseController
 {
-
     use Helpers;
 
     /**
@@ -47,7 +45,7 @@ class CarriersCountriesController extends BaseController
     public function index(Request $request, $idCarrier)
     {
         $carrier = $this->carrierRepository->find($idCarrier);
-        if(!$carrier) {
+        if (! $carrier) {
             throw new UpdateResourceFailedException('Carrier not found');
         }
 
@@ -114,7 +112,7 @@ class CarriersCountriesController extends BaseController
     protected function validCarrier($idCarrier)
     {
         $carrier = $this->carrierRepository->find($idCarrier);
-        if(!$carrier) {
+        if (! $carrier) {
             throw new UpdateResourceFailedException("Carrier '{$idCarrier}' not found");
         }
 
@@ -128,12 +126,10 @@ class CarriersCountriesController extends BaseController
     protected function validCountry($code)
     {
         $country = $this->repository->findBy('code', $code);
-        if(!$country) {
+        if (! $country) {
             throw new UpdateResourceFailedException("Country '{$code}' not found");
         }
 
         return $country;
     }
 }
-
-

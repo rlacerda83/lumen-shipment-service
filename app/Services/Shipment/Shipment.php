@@ -5,10 +5,9 @@ namespace App\Services\Shipment;
 use App\Models\Carrier;
 use App\Repositories\Eloquent\CarrierRepository;
 use Illuminate\Container\Container;
-use Illuminate\Support\Collection;
 
-class Shipment {
-
+class Shipment
+{
     /**
      * @var Package
      */
@@ -47,7 +46,6 @@ class Shipment {
      */
     protected $carrierRepository;
 
-
     public function __construct()
     {
         $container = new Container();
@@ -57,6 +55,7 @@ class Shipment {
     public function setFromName($fromName)
     {
         $this->fromName = $fromName;
+
         return $this;
     }
 
@@ -68,6 +67,7 @@ class Shipment {
     public function setFromAddress1($fromAddress1)
     {
         $this->fromAddress1 = $fromAddress1;
+
         return $this;
     }
 
@@ -79,6 +79,7 @@ class Shipment {
     public function setFromCity($fromCity)
     {
         $this->fromCity = $fromCity;
+
         return $this;
     }
 
@@ -90,6 +91,7 @@ class Shipment {
     public function setFromState($fromState)
     {
         $this->fromState = $fromState;
+
         return $this;
     }
 
@@ -101,6 +103,7 @@ class Shipment {
     public function setFromPostalCode($fromPostalCode)
     {
         $this->fromPostalCode = $fromPostalCode;
+
         return $this;
     }
 
@@ -112,6 +115,7 @@ class Shipment {
     public function setFromCountryCode($fromCountryCode)
     {
         $this->fromCountryCode = $fromCountryCode;
+
         return $this;
     }
 
@@ -120,10 +124,10 @@ class Shipment {
         return $this->fromCountryCode;
     }
 
-
     public function setToName($toName)
     {
         $this->toName = $toName;
+
         return $this;
     }
 
@@ -135,6 +139,7 @@ class Shipment {
     public function setToAddress1($toAddress1)
     {
         $this->toAddress1 = $toAddress1;
+
         return $this;
     }
 
@@ -146,6 +151,7 @@ class Shipment {
     public function setToCity($toCity)
     {
         $this->toCity = $toCity;
+
         return $this;
     }
 
@@ -157,6 +163,7 @@ class Shipment {
     public function setToState($toState)
     {
         $this->toState = $toState;
+
         return $this;
     }
 
@@ -168,6 +175,7 @@ class Shipment {
     public function setToPostalCode($toPostalCode)
     {
         $this->toPostalCode = $toPostalCode;
+
         return $this;
     }
 
@@ -179,6 +187,7 @@ class Shipment {
     public function setToCountryCode($toCountryCode)
     {
         $this->toCountryCode = $toCountryCode;
+
         return $this;
     }
 
@@ -212,7 +221,7 @@ class Shipment {
     public function getCarriers()
     {
         // make sure that field of the array is set and throw an exception if it is not
-        if(empty($this->carriers)) {
+        if (empty($this->carriers)) {
             throw new \UnexpectedValueException('There is no data in the carriers array.');
         }
         // as long as the field is set, return its value
@@ -242,7 +251,6 @@ class Shipment {
             }
 
             $carrierRates[] = $response;
-
         }
 
         return $carrierRates;

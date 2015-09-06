@@ -21,9 +21,9 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
 
     $api->get('carriers/{id}', 'CarriersController@get');
 
-    $api->post('carriers','CarriersController@create');
+    $api->post('carriers', 'CarriersController@create');
 
-    $api->put('carriers/{id}','CarriersController@update');
+    $api->put('carriers/{id}', 'CarriersController@update');
 
     $api->delete('carriers/{id}', 'CarriersController@delete');
 
@@ -32,9 +32,9 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
 
     $api->get('carriers/{idCarrier}/services/{idService}', 'CarriersServicesController@get');
 
-    $api->post('carriers/{idCarrier}/services','CarriersServicesController@create');
+    $api->post('carriers/{idCarrier}/services', 'CarriersServicesController@create');
 
-    $api->put('carriers/{idCarrier}/services/{idService}','CarriersServicesController@update');
+    $api->put('carriers/{idCarrier}/services/{idService}', 'CarriersServicesController@update');
 
     $api->delete('carriers/{idCarrier}/services/{idService}', 'CarriersServicesController@delete');
 
@@ -43,7 +43,7 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
 
     $api->get('carriers/{idCarrier}/countries/{code}', 'CarriersCountriesController@get');
 
-    $api->post('carriers/{idCarrier}/countries','CarriersCountriesController@create');
+    $api->post('carriers/{idCarrier}/countries', 'CarriersCountriesController@create');
 
     $api->delete('carriers/{idCarrier}/countries', 'CarriersCountriesController@delete');
 
@@ -52,5 +52,3 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
 
     $api->get('countries/{code}', 'CountriesController@get');
 });
-
-

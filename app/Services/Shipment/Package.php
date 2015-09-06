@@ -2,34 +2,29 @@
 
 namespace App\Services\Shipment;
 
-class Package {
-
+class Package
+{
     /**
-     *
      * @var mixed integer or float - weight of package
      */
     protected $weight = null;
 
     /**
-     *
      * @var mixed integer or float - length of package
      */
     protected $length = null;
 
     /**
-     *
      * @var mixed integer or float - width of package
      */
     protected $width = null;
 
     /**
-     *
      * @var mixed integer or float - height of package
      */
     protected $height = null;
 
     /**
-     *
      * @var int calculated size of package (length plus girth)
      */
     protected $size = null;
@@ -37,7 +32,6 @@ class Package {
     protected $declaredValue = null;
 
     /**
-     *
      * @var array package options
      *
      * acceptable keys are:
@@ -46,18 +40,18 @@ class Package {
      *  float|int 'insured_amount'
      *  boolean 'signature_required'
      */
-    protected $options = array();
-
+    protected $options = [];
 
     /**
-     * Rounds a float UP to the next tenth (always rounds up) ie: 2.32 becomes 2.4, 3.58 becomes 3.6
+     * Rounds a float UP to the next tenth (always rounds up) ie: 2.32 becomes 2.4, 3.58 becomes 3.6.
      *
      * @version updated 12/09/2012
      * @since 12/09/2012
      * @param float $float the float to be rounded
      * @return float the rounded float
      */
-    protected function roundUpToTenth($float) {
+    protected function roundUpToTenth($float)
+    {
         // round each value UP to the next tenth
         return ceil($float * 10) / 10;
     }
@@ -111,7 +105,6 @@ class Package {
     {
         return $this->declaredValue;
     }
-
 
     /**
      * @param $length
@@ -188,22 +181,21 @@ class Package {
         return $this->width;
     }
 
-
     /**
-     * Calculates the package's size (the length plus the girth)
+     * Calculates the package's size (the length plus the girth).
      *
      * @version updated 01/14/2013
      * @since 12/04/2012
      * @return int the size (length plus girth of the package) and rounded
      */
-    protected function calculatePackageSize() {
+    protected function calculatePackageSize()
+    {
         return round($this->length + $this->calculatePackageGirth());
     }
 
-
     /**
      * Calculates the package's girth (the distance around the two smaller sides of the package or width + width
-     *      + height + height
+     *      + height + height.
      *
      * @param int|float $width the width of the package (if null, the object property $this->width will be used)
      * @param int|float $height the height of the package (if null, the object property $this->height will be used)
@@ -211,12 +203,13 @@ class Package {
      * @since 12/04/2012
      * @return int the girth of the package
      */
-    public function calculatePackageGirth($width = null, $height = null) {
+    public function calculatePackageGirth($width = null, $height = null)
+    {
         // if values are null, fill them with the object properties
-        if($width == null) {
+        if ($width == null) {
             $width = $this->width;
         }
-        if($height == null) {
+        if ($height == null) {
             $height = $this->height;
         }
         // calculate and return the girth
@@ -224,7 +217,7 @@ class Package {
     }
 
     /**
-     * Converts an integer or float in pounds to pounds and ounces
+     * Converts an integer or float in pounds to pounds and ounces.
      *
      * @param int|float $pounds pounds value to convert
      * @return array ['pounds'] and ['ounces']
@@ -232,11 +225,12 @@ class Package {
      * @version 01/14/2013
      * @since 01/14/2013
      */
-    public function convertWeightToPoundsOunces($pounds) {
+    public function convertWeightToPoundsOunces($pounds)
+    {
         // initialize output
-        $output = array();
+        $output = [];
         // see if the package weight is an integer
-        if(is_integer($pounds)) {
+        if (is_int($pounds)) {
             $output['pounds'] = intval($pounds);
             $output['ounces'] = 0;
         }
@@ -247,29 +241,27 @@ class Package {
             // pounds are the first entry
             $output['pounds'] = intval($w[0]);
             // back up check in case integer is evaluated as a float
-            if(isset($w[1])) {
+            if (isset($w[1])) {
                 // format $w[1] back to a decimal of pounds (dividing by 1000 because it has 3 decimal places above)
                 $w[1] = $w[1] / 1000;
                 // convert second entry to ounces
                 $ounces = 16 * $w[1];
                 // round up to the tenth of an ounce
                 $output['ounces'] = $this->roundUpToTenth($ounces);
-            }
-            else {
+            } else {
                 $output['ounces'] = 0;
             }
         }
         // not an integer or a float
         else {
-            throw new \UnexpectedValueException('Weight value (' . $this->weight . ') is not a float or an integer.');
+            throw new \UnexpectedValueException('Weight value ('.$this->weight.') is not a float or an integer.');
         }
         // return array holding pounds and ounces
         return $output;
     }
 
-
     /**
-     * Converts a weight in KG to pounds (rounded to hundreths)
+     * Converts a weight in KG to pounds (rounded to hundreths).
      *
      * @param int|float $kg weight in KG
      * @return float weight in pounds
@@ -277,18 +269,18 @@ class Package {
      * @version 01/14/2013
      * @since 01/14/2013
      */
-    public function convertKgToPounds($kg) {
+    public function convertKgToPounds($kg)
+    {
         // make sure that supplied KG value is numeric
-        if(! is_numeric($kg)) {
-            throw new \InvalidArgumentException('Supplied KG value (' . $kg . ') is not numeric.');
+        if (! is_numeric($kg)) {
+            throw new \InvalidArgumentException('Supplied KG value ('.$kg.') is not numeric.');
         }
         // convert to pounds and round to hundreths
         return number_format($kg * 2.20462, 2);
     }
 
-
     /**
-     * Converts a length in CM to inches (rounded to hundreths)
+     * Converts a length in CM to inches (rounded to hundreths).
      *
      * @param int|float $cm length in CM
      * @return float length in inches
@@ -296,13 +288,13 @@ class Package {
      * @version 01/14/2013
      * @since 01/14/2013
      */
-    public function convertCmToInches($cm) {
+    public function convertCmToInches($cm)
+    {
         // make sure that supplied CM value is numeric
-        if(! is_numeric($cm)) {
-            throw new \InvalidArgumentException('Supplied CM value (' . $cm . ') is not numeric.');
+        if (! is_numeric($cm)) {
+            throw new \InvalidArgumentException('Supplied CM value ('.$cm.') is not numeric.');
         }
         // convert to inches and round to hundreths
         return number_format($cm * 0.393701, 2);
     }
-
 }

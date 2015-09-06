@@ -40,6 +40,5 @@ class CreateShipmentCarrierServiceTable extends Migration
         if (Schema::hasTable(CarrierService::getTableName())) {
             Schema::drop(CarrierService::getTableName());
         }
-
     }
 }
