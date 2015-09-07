@@ -41,8 +41,6 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     //Carriers Countries
     $api->get('carriers/{idCarrier}/countries', 'CarriersCountriesController@index');
 
-    $api->get('carriers/{idCarrier}/countries/{code}', 'CarriersCountriesController@get');
-
     $api->post('carriers/{idCarrier}/countries', 'CarriersCountriesController@create');
 
     $api->delete('carriers/{idCarrier}/countries', 'CarriersCountriesController@delete');
