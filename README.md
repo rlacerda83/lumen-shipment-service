@@ -1,6 +1,6 @@
-[![License](https://img.shields.io/packagist/l/rlacerda83/lumem-microservice-shippment.svg?style=flat-square)](https://packagist.org/packages/rlacerda83/lumem-microservice-shippment)
-![Development Version](https://img.shields.io/packagist/vpre/rlacerda83/lumem-microservice-shippment.svg?style=flat-square)
-![Monthly Installs](https://img.shields.io/packagist/dm/rlacerda83/lumem-microservice-shippment.svg?style=flat-square)
+[![License](https://img.shields.io/packagist/l/rlacerda83/lumem-microservice-shipment.svg?style=flat-square)](https://packagist.org/packages/rlacerda83/lumem-microservice-shipment)
+![Development Version](https://img.shields.io/packagist/vpre/rlacerda83/lumem-microservice-shipment.svg?style=flat-square)
+![Monthly Installs](https://img.shields.io/packagist/dm/rlacerda83/lumem-microservice-shipment.svg?style=flat-square)
 [![StyleCI](https://styleci.io/repos/40948952/shield)](https://styleci.io/repos/40948952)
 
 ## Shipment API
@@ -17,7 +17,6 @@ For now only available freight calculation for the post of Brazil.
 - Does the calculation of freight
 
 ## Upcoming Features
-- Address search to Brazil
 - Implement calculation for UPS
 - Implement calculation for FEDEX
 - Implement calculation for DHL
