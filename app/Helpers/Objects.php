@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-
 class Objects
 {
     public static function toArray($class)
