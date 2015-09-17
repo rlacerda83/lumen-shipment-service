@@ -49,4 +49,5 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->get('countries', 'CountriesController@index');
 
     $api->get('countries/{code}', 'CountriesController@get');
+
 });

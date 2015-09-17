@@ -7,7 +7,6 @@
     "require": {
         "laravel/lumen-framework": "5.1.*",
         "vlucas/phpdotenv": "~1.0",
-        "illuminate/mail" : "5.*",
         "jeremeamia/superclosure": "~2.0",
         "dingo/api": "@dev",
         "rlacerda83/query-parser": "@dev",
